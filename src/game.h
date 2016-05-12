@@ -7,6 +7,7 @@
 #include <iostream>
 #include <cmath>
 #include <random>
+#include <memory>
 #include "board.h"
 #include "object.h"
 #include "player.h"
@@ -20,8 +21,8 @@ class Game {
         unsigned int score = 0;
         const int maxStars = 40;
         const int maxEnemies = 15;
-        Board* board;
-        Player* player;
+        std::shared_ptr<Board> board;
+        std::shared_ptr<Player> player;
         std::vector<Star> stars;
         std::vector<Enemy> enemies;
 
