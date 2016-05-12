@@ -9,7 +9,7 @@
  */
 
 Game::Game() {
-    board = new Board(1.84, 2, 0.0);
+    board = new Board(2, 2, 0.0);
     player = new Player();
 
     std::random_device rd;
@@ -119,7 +119,6 @@ void Game::shoot() {
 }
 
 void Game::render(GLFWwindow* window) {
-
     float ratio;
     int width, height;
     glfwGetFramebufferSize(window, &width, &height);
@@ -128,8 +127,6 @@ void Game::render(GLFWwindow* window) {
     // glClear(GL_COLOR_BUFFER_BIT);
     // glMatrixMode(GL_PROJECTION);
     renderObjects(ratio);
-
-
 }
 
 void Game::renderObjects(float ratio) {
