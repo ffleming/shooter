@@ -8,9 +8,9 @@
  *
  */
 
-Game::Game() {
-    board = new Board(2, 2, 0.0);
-    player = new Player();
+Game::Game() :
+    board(new Board(2, 2, 0.0)),
+    player(new Player()) {
 
     std::random_device rd;
     std::mt19937 gen(rd());
