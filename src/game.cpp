@@ -49,9 +49,9 @@ void Game::updatePlayer() {
         player->location.y += player->velocity.y;
     }
 
-    std::vector<Enemy>::iterator enemy;
-    for(enemy = enemies.begin(); enemy < enemies.end(); enemy++) {
-        if(player->collidesWith(&*enemy)) {
+    std::vector<std::shared_ptr <Enemy>>::iterator enemyIter;
+    for(enemyIter = enemies.begin(); enemyIter < enemies.end(); enemyIter++) {
+        if(player->collidesWith(*enemyIter)) {
             std::cout << "I DIED :(\n" << std::flush;
             std::cout << "Score: " << score << "\n" << std::flush;
             gameOver = true;
@@ -91,25 +91,25 @@ void Game::updatePlayerBullets() {
 //TODO: Better collision detection than n^2
 void Game::updateEnemies() {
     if(enemies.size() < maxEnemies) {
-        enemies.push_back(Enemy());
+        enemies.push_back(std::shared_ptr<Enemy>(new Enemy()));
     }
-    std::vector<Enemy>::iterator enemy;
+    std::vector<std::shared_ptr<Enemy>>::iterator enemyIter;
     std::vector<PlayerBullet>::iterator bullet;
-    for(enemy = enemies.begin(); enemy < enemies.end(); enemy++) {
-        enemy->location.x += enemy->velocity.x;
-        enemy->location.y += enemy->velocity.y;
-        enemy->update();
+    for(enemyIter = enemies.begin(); enemyIter < enemies.end(); enemyIter++) {
+        (*enemyIter)->location.x += (*enemyIter)->velocity.x;
+        (*enemyIter)->location.y += (*enemyIter)->velocity.y;
+        (*enemyIter)->update();
 
         for(bullet = player->bullets.begin(); bullet < player->bullets.end(); bullet++) {
-            if(bullet->collidesWith( &*enemy )) {
-                enemies.erase(enemy);
+            if(bullet->collidesWith( *enemyIter )) {
+                enemies.erase(enemyIter);
                 player->bullets.erase(bullet);
                 score += 1;
             }
         }
 
-        if(enemy->edge(Enemy::Edge::TOP) < board->bottomSurfaceY()) {
-            enemies.erase(enemy);
+        if((*enemyIter)->edge(Enemy::Edge::TOP) < board->bottomSurfaceY()) {
+            enemies.erase(enemyIter);
         }
     }
 }
@@ -138,9 +138,9 @@ void Game::renderObjects(float ratio) {
 }
 
 void Game::renderEnemies(float ratio) {
-    std::vector<Enemy>::iterator enemy;
-    for(enemy = enemies.begin(); enemy < enemies.end(); enemy++) {
-        enemy->render(ratio);
+    std::vector<std::shared_ptr<Enemy>>::iterator enemyIter;
+    for(enemyIter = enemies.begin(); enemyIter < enemies.end(); enemyIter++) {
+        (*enemyIter)->render(ratio);
     }
 
 }
@@ -217,7 +217,7 @@ void Game::keyDown(int key, int scancode, int mods) {
             shoot();
             break;
          case GLFW_KEY_E:
-            enemies.push_back(Enemy());
+            enemies.push_back(std::shared_ptr<Enemy>(new Enemy()));
             break;
         default:
             std::cout << "I don't know what to do with " << key << "!\n" << std::flush;

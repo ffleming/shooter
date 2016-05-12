@@ -36,7 +36,7 @@ class Object {
         GLuint vao;
         GLuint vbo;
 
-        bool collidesWith(Object* obj);
+        bool collidesWith(std::shared_ptr<Object> obj);
         float edge(Edge);
         struct color {
             float red;

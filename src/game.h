@@ -24,7 +24,7 @@ class Game {
         std::shared_ptr<Board> board;
         std::shared_ptr<Player> player;
         std::vector<Star> stars;
-        std::vector<Enemy> enemies;
+        std::vector<std::shared_ptr<Enemy>> enemies;
 
         void updateObjects();
         void updateStars();

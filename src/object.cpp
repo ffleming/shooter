@@ -81,7 +81,7 @@ void Object::zVelocity(float input) {
     velocity.z = input;
 }
 
-bool Object::collidesWith(Object* other) {
+bool Object::collidesWith(std::shared_ptr<Object> other) {
     if(this->edge(Object::Edge::LEFT) > other->edge(Object::Edge::RIGHT)) {
         return false;
     }
