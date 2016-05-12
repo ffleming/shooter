@@ -138,17 +138,17 @@ void Game::renderObjects(float ratio) {
 }
 
 void Game::renderEnemies(float ratio) {
-    std::vector<Enemy>::iterator iter;
-    for(iter = enemies.begin(); iter < enemies.end(); iter++) {
-        iter->render(ratio);
+    std::vector<Enemy>::iterator enemy;
+    for(enemy = enemies.begin(); enemy < enemies.end(); enemy++) {
+        enemy->render(ratio);
     }
 
 }
 
 void Game::renderStars(float ratio) {
-    std::vector<Star>::iterator iter;
-    for(iter = stars.begin(); iter < stars.end(); iter++) {
-        iter->render(ratio);
+    std::vector<Star>::iterator star;
+    for(star = stars.begin(); star < stars.end(); star++) {
+        star->render(ratio);
     }
 }
 
