@@ -16,11 +16,11 @@ Game::Game() :
     std::mt19937 gen(rd());
     std::uniform_real_distribution<> randomCoord(-0.9, 0.9);
     while(stars.size() <= maxStars) {
-        Star newStar;
-        newStar.location.x = randomCoord(gen);
-        newStar.location.y = randomCoord(gen);
-        newStar.location.z = randomCoord(gen);
-        stars.push_back(newStar);
+        std::unique_ptr<Star> newStar(new Star());
+        newStar->location.x = randomCoord(gen);
+        newStar->location.y = randomCoord(gen);
+        newStar->location.z = randomCoord(gen);
+        stars.push_back(std::move(newStar));
     }
 }
 
@@ -63,14 +63,15 @@ void Game::updatePlayer() {
 
 void Game::updateStars() {
     if(stars.size() < maxStars) {
-        stars.push_back(Star());
+        std::unique_ptr<Star> newStar(new Star());
+        stars.push_back(std::move(newStar));
     }
-    std::vector<Star>::iterator star;
+    std::vector<std::unique_ptr<Star>>::iterator star;
     for(star = stars.begin(); star < stars.end(); star++) {
-        star->location.x += star->velocity.x;
-        star->location.y += star->velocity.y;
-        star->update();
-        if(star->edge(Star::Edge::TOP) < board->bottomSurfaceY()) {
+        (*star)->location.x += (*star)->velocity.x;
+        (*star)->location.y += (*star)->velocity.y;
+        (*star)->update();
+        if((*star)->edge(Star::Edge::TOP) < board->bottomSurfaceY()) {
             stars.erase(star);
         }
     }
@@ -146,9 +147,9 @@ void Game::renderEnemies(float ratio) {
 }
 
 void Game::renderStars(float ratio) {
-    std::vector<Star>::iterator star;
+    std::vector<std::unique_ptr<Star>>::iterator star;
     for(star = stars.begin(); star < stars.end(); star++) {
-        star->render(ratio);
+        (*star)->render(ratio);
     }
 }
 

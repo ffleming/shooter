@@ -23,7 +23,7 @@ class Game {
         const int maxEnemies = 15;
         std::shared_ptr<Board> board;
         std::shared_ptr<Player> player;
-        std::vector<Star> stars;
+        std::vector<std::unique_ptr<Star>> stars;
         std::vector<std::shared_ptr<Enemy>> enemies;
 
         void updateObjects();
