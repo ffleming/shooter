@@ -217,7 +217,7 @@ void Game::keyDown(int key, int scancode, int mods) {
             shoot();
             break;
          case GLFW_KEY_E:
-            enemies.push_back(std::shared_ptr<Enemy>(new Enemy()));
+            enemies.push_back(std::shared_ptr<Enemy>(new Enemy));
             break;
         default:
             std::cout << "I don't know what to do with " << key << "!\n" << std::flush;
