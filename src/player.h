@@ -17,11 +17,6 @@ class Player : public Object {
         friend class Game;
     private:
         std::vector<PlayerBullet> bullets;
-        const char* vPath() { 
-            std::cout << "what\n" << std::flush;
-            return "data/player.vertexshader";
-        };
-        // virtual const char* fPath() { return "data/player.fragmentshader"; };
         char* vertexShaderPath; //= "data/player.vertexshader";
         char* fragmentShaderPath; //= "data/player.fragmentshader";
 

@@ -28,7 +28,7 @@ class Object {
         float xVelocity();
         float yVelocity();
         float zVelocity();
-        Mesh* mesh;
+        // Mesh* mesh;
 
     protected:
         GLuint loadShader(const char*, const char*);
