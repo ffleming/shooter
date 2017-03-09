@@ -7,7 +7,7 @@ BUILDDIR=build
 SOURCEDIR=src
 
 all: object.o player.o enemy.o star.o player_bullet.o board.o main.o game.o mesh.o shader.o
-	c++ $(GLFW_CFLAGS) $(CFLAGS) -o shooter $(BUILDDIR)/main.o $(BUILDDIR)/mesh.o $(BUILDDIR)/game.o $(BUILDDIR)/object.o $(BUILDDIR)/player.o $(BUILDDIR)/enemy.o $(BUILDDIR)/star.o $(BUILDDIR)/board.o $(BUILDDIR)/player_bullet.o $(BUILDDIR)/shader.o $(GLFW_LIBS) $(LIBS)
+	c++ $(GLFW_CFLAGS) $(CFLAGS) -o shooter $(BUILDDIR)/main.o $(BUILDDIR)/mesh.o $(BUILDDIR)/game.o $(BUILDDIR)/object.o $(BUILDDIR)/player.o $(BUILDDIR)/enemy.o $(BUILDDIR)/star.o $(BUILDDIR)/board.o $(BUILDDIR)/player_bullet.o $(BUILDDIR)/shader.o $(GLFW_LIBS) $(LIBS) -framework OpenGL
 
 shader.o:
 	c++ $(CFLAGS) -w -c -o $(BUILDDIR)/shader.o $(SOURCEDIR)/common/shader.cpp $(LIBS)
